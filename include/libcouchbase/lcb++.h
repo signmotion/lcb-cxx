@@ -204,24 +204,24 @@ private:
 
 class Client {
 public:
-    Client(const char *s, const char *passwd = NULL);
-    ~Client();
-    Status connect();
-    GetResponse get(const std::string& key);
-    Response store(const std::string& key, const std::string& value);
-    Response remove(const std::string& key);
-    Response touch(const std::string& key, unsigned expiry=0);
-    CounterResponse incr(const std::string& key);
-    CounterResponse decr(const std::string& key);
-    void wait();
+    LCB_CXX_API Client( const char *s, const char *passwd = NULL );
+    LCB_CXX_API ~Client();
+    LCB_CXX_API Status connect();
+    LCB_CXX_API GetResponse get( const std::string& key );
+    LCB_CXX_API Response store( const std::string& key, const std::string& value );
+    LCB_CXX_API Response remove( const std::string& key );
+    LCB_CXX_API Response touch( const std::string& key, unsigned expiry = 0 );
+    LCB_CXX_API CounterResponse incr( const std::string& key );
+    LCB_CXX_API CounterResponse decr( const std::string& key );
+    LCB_CXX_API void wait();
     lcb_t getLcbt() const { return instance; }
 
-    static void dispatchFromCallback(lcb_t, int, const lcb_RESPBASE*);
+    LCB_CXX_API static void dispatchFromCallback( lcb_t, int, const lcb_RESPBASE* );
 private:
-    Status schedule(const Command&, Response*, lcb_CALLBACKTYPE op);
+    LCB_CXX_API Status schedule( const Command&, Response*, lcb_CALLBACKTYPE op );
     lcb_t instance;
-    void dispatch(int, const lcb_RESPBASE*);
-    Client(Client&);
+    LCB_CXX_API void dispatch( int, const lcb_RESPBASE* );
+    LCB_CXX_API Client( Client& );
 };
 
 class Client;

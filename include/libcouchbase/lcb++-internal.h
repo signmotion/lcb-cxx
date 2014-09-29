@@ -2,6 +2,25 @@
  * This file contains internal definitions for use by the main API header file.
  */
 
+// For create DLL + LIB.
+// By analogy with 'libcouchbase/visibility.h LIBCOUCHBASE_API'.
+#ifdef LCB_CXX_STATIC
+#define LCB_CXX_API
+#else
+
+#ifdef __SUNPRO_C
+#define LCB_CXX_API __global
+#elif defined(HAVE_VISIBILITY) && HAVE_VISIBILITY
+#define LCB_CXX_API __attribute__ ((visibility("default")))
+#elif defined(_MSC_VER)
+#define LCB_CXX_API __declspec(dllexport)
+#else
+#define LCB_CXX_API
+#endif
+
+#endif
+
+
 // This macro overloads the address-of operator so that it is castable to its
 // native libcouchbase type
 #define LCB_CXX_CMD_IS(name, memb) const name* operator&() const { return &memb; }
